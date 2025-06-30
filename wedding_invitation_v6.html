@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teresa & Jorge - 16 de Mayo 2026</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Lora:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Lora', serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f8f6f3 0%, #fff 100%);
+            overflow-x: hidden;
+        }
+
+        /* Sistema de acceso */
+        .access-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #f8f6f3 0%, #fff 100%);
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 0.5s ease, visibility 0.5s ease;
+        }
+
+        .access-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .access-form {
+            background: white;
+            padding: 3rem 2rem;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .access-form h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #8B7355;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+
+        .access-form p {
+            color: #666;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+        }
+
+        .access-form input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 1.5rem;
+            font-family: 'Lora', serif;
+            transition: border-color 0.3s ease;
+        }
+
+        .access-form input:focus {
+            outline: none;
+            border-color: #8B7355;
+        }
+
+        .access-btn {
+            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            font-family: 'Lora', serif;
+            font-weight: 500;
+        }
+
+        .access-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(139, 115, 85, 0.3);
+        }
+
+        /* Cabecera personalizada */
+        .personal-header {
+            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            opacity: 0;
+            animation: slideDown 0.8s ease forwards;
+        }
+
+        .personal-header h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            font-weight: 600;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            opacity: 0;
+            animation: fadeInUp 1s ease forwards;
+        }
+
+        /* Portada */
+        .hero {
+            height: 100vh;
+            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600"><rect fill="%23f4f1ed" width="400" height="600"/><circle cx="200" cy="300" r="100" fill="%23e8ddd4" opacity="0.5"/><text x="200" y="320" text-anchor="middle" font-family="serif" font-size="24" fill="%238B7355">Teresa %26 Jorge</text></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: white;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(139, 115, 85, 0.8) 0%, rgba(166, 139, 91, 0.6) 100%);
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 3.5rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1.2s ease forwards;
+        }
+
+        .hero .date {
+            font-size: 1.5rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            animation: fadeIn 1.5s ease forwards;
+        }
+
+        /* Secciones */
+        .section {
+            padding: 4rem 1.5rem;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        .section h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            color: #8B7355;
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+        }
+
+        .section p {
+            font-size: 1.2rem;
+            text-align: center;
+            color: #666;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Cuenta regresiva */
+        .countdown {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+            margin: 2rem 0;
+        }
+
+        .countdown h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            color: #8B7355;
+            margin-bottom: 2rem;
+        }
+
+        .countdown-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1rem;
+        }
+
+        .countdown-item {
+            text-align: center;
+        }
+
+        .countdown-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #8B7355;
+            display: block;
+        }
+
+        .countdown-label {
+            font-size: 0.9rem;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        /* Detalles del evento */
+        .event-details {
+            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            margin: 2rem 0;
+            text-align: center;
+        }
+
+        .event-details h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .event-detail {
+            margin-bottom: 1.5rem;
+            font-size: 1.2rem;
+        }
+
+        .event-detail strong {
+            display: block;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+        }
+
+        /* Mapa */
+        .map-container {
+            margin: 2rem 0;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .map-placeholder {
+            height: 300px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #666;
+            border: 2px dashed #ccc;
+        }
+
+        /* RSVP */
+        .rsvp {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+
+        .rsvp-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 2rem 0;
+            flex-wrap: wrap;
+        }
+
+        .rsvp-btn {
+            padding: 1rem 2rem;
+            border: 2px solid #8B7355;
+            border-radius: 50px;
+            background: transparent;
+            color: #8B7355;
+            font-family: 'Lora', serif;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-width: 150px;
+        }
+
+        .rsvp-btn:hover,
+        .rsvp-btn.active {
+            background: #8B7355;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .rsvp-form {
+            display: none;
+            margin-top: 2rem;
+            text-align: left;
+        }
+
+        .rsvp-form.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-family: 'Lora', serif;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #8B7355;
+        }
+
+        .submit-btn {
+            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+            color: white;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            font-family: 'Lora', serif;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+        }
+
+        /* Galería */
+        .gallery {
+            margin: 2rem 0;
+        }
+
+        .gallery-slider {
+            position: relative;
+            overflow: hidden;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        .gallery-track {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+
+        .gallery-item {
+            min-width: 100%;
+            height: 400px;
+            background: #f0f0f0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            color: #666;
+            border: 2px dashed #ccc;
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.9);
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            color: #8B7355;
+            transition: all 0.3s ease;
+        }
+
+        .gallery-nav:hover {
+            background: white;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .gallery-nav.prev {
+            left: 1rem;
+        }
+
+        .gallery-nav.next {
+            right: 1rem;
+        }
+
+        /* Música */
+        .music-section {
+            background: white;
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+
+        /* Regalos */
+        .gifts {
+            background: linear-gradient(135deg, #f8f6f3 0%, #fff 100%);
+            border-radius: 20px;
+            padding: 3rem 2rem;
+            border: 2px solid #e8ddd4;
+            text-align: center;
+        }
+
+        .iban {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            border: 2px solid #8B7355;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: #8B7355;
+            letter-spacing: 2px;
+        }
+
+        .joke-text {
+            font-style: italic;
+            color: #888;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+            color: white;
+            text-align: center;
+            padding: 4rem 2rem;
+            margin-top: 4rem;
+        }
+
+        .footer h2 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer p {
+            font-size: 1.3rem;
+            font-weight: 300;
+        }
+
+        /* Animaciones */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-100%);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.8rem;
+            }
+            
+            .section {
+                padding: 3rem 1rem;
+            }
+            
+            .section h2 {
+                font-size: 2rem;
+            }
+            
+            .countdown-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+            
+            .countdown-number {
+                font-size: 2rem;
+            }
+            
+            .rsvp-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .rsvp-btn {
+                width: 100%;
+                max-width: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Sistema de acceso -->
+    <div class="access-overlay" id="accessOverlay">
+        <div class="access-form">
+            <h1>Teresa & Jorge</h1>
+            <p>Introduce tu código de invitación</p>
+            <input type="text" id="accessCode" placeholder="Código" maxlength="10">
+            <br>
+            <button class="access-btn" onclick="checkAccess()">Acceder</button>
+        </div>
+    </div>
+
+    <!-- Cabecera personalizada -->
+    <div class="personal-header" id="personalHeader" style="display: none;">
+        <h2>¡Hola, <span id="guestName"></span>!</h2>
+    </div>
+
+    <!-- Contenido principal -->
+    <div class="main-content" id="mainContent" style="display: none;">
+        <!-- Portada -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Teresa & Jorge</h1>
+                <div class="date">16 de mayo de 2026</div>
+            </div>
+        </section>
+
+        <!-- Nuestra historia -->
+        <section class="section">
+            <h2>Nuestra Historia</h2>
+            <p>Nos conocimos en una tarde de primavera que cambió nuestras vidas para siempre. Desde ese primer encuentro, supimos que habíamos encontrado a nuestra alma gemela. Después de años de risas, aventuras y sueños compartidos, hemos decidido dar el paso más importante de nuestras vidas.</p>
+            <p>Queremos que seas parte de este momento tan especial, porque los mejores recuerdos se crean con las personas que más queremos a nuestro lado.</p>
+        </section>
+
+        <!-- Cuenta regresiva -->
+        <section class="section">
+            <div class="countdown">
+                <h3>Faltan</h3>
+                <div class="countdown-container">
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="days">0</span>
+                        <span class="countdown-label">Días</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="hours">0</span>
+                        <span class="countdown-label">Horas</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="minutes">0</span>
+                        <span class="countdown-label">Minutos</span>
+                    </div>
+                    <div class="countdown-item">
+                        <span class="countdown-number" id="seconds">0</span>
+                        <span class="countdown-label">Segundos</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Detalles del evento -->
+        <section class="section">
+            <div class="event-details">
+                <h3>Detalles del Evento</h3>
+                <div class="event-detail">
+                    <strong>Fecha</strong>
+                    Sábado 16 de mayo de 2026
+                </div>
+                <div class="event-detail">
+                    <strong>Ubicación</strong>
+                    La Cañada de Mónico, Madrid
+                </div>
+                <div class="event-detail">
+                    <strong>Dress Code</strong>
+                    Cóctel
+                </div>
+            </div>
+        </section>
+
+        <!-- Mapa -->
+        <section class="section">
+            <h2>Ubicación</h2>
+            <div class="map-container">
+                <iframe 
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3037.5234567890123!2d-3.7037900000000000!3d40.4167754!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNDDCsDI1JzAwLjQiTiAzwrA0MicxMy42Ilc!5e0!3m2!1ses!2ses!4v1234567890123!5m2!1ses!2ses"
+                    width="100%" 
+                    height="300" 
+                    style="border:0;" 
+                    allowfullscreen="" 
+                    loading="lazy" 
+                    referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+        </section>
+
+        <!-- RSVP -->
+        <section class="section">
+            <div class="rsvp">
+                <h2>Confirmar Asistencia</h2>
+                <p>Por favor, confirma tu asistencia antes del 1 de abril de 2026</p>
+                
+                <div class="rsvp-buttons">
+                    <button class="rsvp-btn" onclick="selectRSVP('confirm')">Confirmo</button>
+                    <button class="rsvp-btn" onclick="selectRSVP('decline')">No puedo asistir</button>
+                </div>
+
+                <div class="rsvp-form" id="confirmForm">
+                    <div class="form-group">
+                        <label for="guestNameConfirm">Nombre completo</label>
+                        <input type="text" id="guestNameConfirm" placeholder="Tu nombre">
+                    </div>
+                    <div class="form-group">
+                        <label for="allergies">Alergias o restricciones alimentarias</label>
+                        <textarea id="allergies" rows="3" placeholder="Déjanos saber si tienes alguna alergia o restricción alimentaria"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="comments">Comentarios adicionales</label>
+                        <textarea id="comments" rows="3" placeholder="Cualquier comentario que quieras compartir con nosotros"></textarea>
+                    </div>
+                    <button class="submit-btn" onclick="submitRSVP('confirm')">Confirmar Asistencia</button>
+                </div>
+
+                <div class="rsvp-form" id="declineForm">
+                    <p style="text-align: center; font-size: 1.2rem; color: #666; margin: 2rem 0;">
+                        Lamentamos que no puedas acompañarnos en este día tan especial. Tu amistad significa mucho para nosotros y esperamos celebrar contigo en otra ocasión.
+                    </p>
+                    <button class="submit-btn" onclick="submitRSVP('decline')">Enviar Respuesta</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Galería -->
+        <section class="section">
+            <h2>Galería</h2>
+            <div class="gallery">
+                <div class="gallery-slider">
+                    <div class="gallery-track" id="galleryTrack">
+                        <div class="gallery-item">📸 Foto 1 - Nuestra primera cita</div>
+                        <div class="gallery-item">📸 Foto 2 - En nuestro viaje a París</div>
+                        <div class="gallery-item">📸 Foto 3 - El día de la pedida</div>
+                        <div class="gallery-item">📸 Foto 4 - Con nuestras familias</div>
+                        <div class="gallery-item">📸 Foto 5 - Nuestro último cumpleaños juntos</div>
+                    </div>
+                    <button class="gallery-nav prev" onclick="moveGallery(-1)">‹</button>
+                    <button class="gallery-nav next" onclick="moveGallery(1)">›</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- Música -->
+        <section class="section">
+            <div class="music-section">
+                <h2>¡Ayúdanos a elegir la música!</h2>
+                <p>Queremos que la banda sonora de nuestra boda sea perfecta. ¿Tienes alguna canción especial que te gustaría escuchar?</p>
+                <div class="form-group" style="margin-top: 2rem;">
+                    <label for="songSuggestion">Sugerencias de canciones</label>
+                    <textarea id="songSuggestion" rows="4" placeholder="Comparte con nosotros tus canciones favoritas o esas que sabes que nos harán bailar toda la noche"></textarea>
+                </div>
+                <button class="submit-btn" onclick="submitSong()">Enviar Sugerencias</button>
+            </div>
+        </section>
+
+        <!-- Regalos -->
+        <section class="section">
+            <div class="gifts">
+                <h2>Regalos</h2>
+                <p>Si deseáis regalarnos algo más que vuestra hermosa presencia…</p>
+                
+                <div class="iban">
+                    ES12 3456 7890 1234 5678 9012
+                </div>
+                
+                <p class="joke-text">
+                    Aunque si podéis, ¡mejor en efectivo! Así evitamos darle explicaciones a Hacienda 😉
+                </p>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <h2>Estamos deseando compartir este día contigo</h2>
+            <p>Con amor, Teresa & Jorge</p>
+        </footer>
+    </div>
+
+    <script>
+        // Variables globales
+        let currentGuestCode = '';
+        let currentGuestName = '';
+        
+        // Códigos de acceso (simulados para validación local)
+        const accessCodes = {
+            'FAM001': 'Familia García',
+            'FAM002': 'Familia López',
+            'AMG001': 'María',
+            'AMG002': 'Carlos',
+            'AMG003': 'Ana y Pedro',
+            'AMG004': 'Lucía',
+            'AMG005': 'Miguel',
+            'ADMIN': 'Administrador'
+        };
+
+        // Endpoint de Google Apps Script
+        const BACKEND_URL = 'https://script.google.com/macros/s/AKfycby6sgribhZIlpsZ7NLUfeaC1XyHVH3xkTYhfKL-PSq3ky6zUVA4x3Gjn0qpd58IC7P5/exec';
+
+        // Función para verificar acceso
+        async function checkAccess() {
+            const code = document.getElementById('accessCode').value.toUpperCase().trim();
+            
+            if (!code) {
+                alert('Por favor, introduce tu código de invitación.');
+                return;
+            }
+
+            try {
+                // Mostrar loading
+                const btn = document.querySelector('.access-btn');
+                const originalText = btn.textContent;
+                btn.textContent = 'Verificando...';
+                btn.disabled = true;
+
+                // Verificar código con el backend
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'validateCode',
+                        code: code
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Guardar datos del invitado
+                    currentGuestCode = code;
+                    currentGuestName = result.guestName;
+                    
+                    // Mostrar nombre en la cabecera
+                    document.getElementById('guestName').textContent = currentGuestName;
+                    
+                    // Ocultar overlay y mostrar contenido
+                    document.getElementById('accessOverlay').classList.add('hidden');
+                    document.getElementById('personalHeader').style.display = 'block';
+                    document.getElementById('mainContent').style.display = 'block';
+                    
+                    setTimeout(() => {
+                        startCountdown();
+                    }, 500);
+                } else {
+                    alert(result.message || 'Código incorrecto. Por favor, verifica tu código de invitación.');
+                }
+            } catch (error) {
+                console.error('Error al verificar el código:', error);
+                alert('Error de conexión. Por favor, inténtalo de nuevo.');
+            } finally {
+                // Restaurar botón
+                const btn = document.querySelector('.access-btn');
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Permitir presionar Enter en el campo de código
+        document.getElementById('accessCode').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                checkAccess();
+            }
+        });
+
+        // Cuenta regresiva
+        function startCountdown() {
+            const weddingDate = new Date('2026-05-16T18:00:00').getTime();
+            
+            const countdown = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = weddingDate - now;
+                
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                
+                document.getElementById('days').textContent = days;
+                document.getElementById('hours').textContent = hours;
+                document.getElementById('minutes').textContent = minutes;
+                document.getElementById('seconds').textContent = seconds;
+                
+                if (distance < 0) {
+                    clearInterval(countdown);
+                    document.getElementById('days').textContent = '0';
+                    document.getElementById('hours').textContent = '0';
+                    document.getElementById('minutes').textContent = '0';
+                    document.getElementById('seconds').textContent = '0';
+                }
+            }, 1000);
+        }
+
+        // RSVP Functions
+        function selectRSVP(choice) {
+            // Reset buttons
+            document.querySelectorAll('.rsvp-btn').forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
+            
+            // Hide all forms
+            document.querySelectorAll('.rsvp-form').forEach(form => form.classList.remove('active'));
+            
+            // Show selected form
+            if (choice === 'confirm') {
+                document.getElementById('confirmForm').classList.add('active');
+            } else {
+                document.getElementById('declineForm').classList.add('active');
+            }
+        }
+
+        // Nueva función submitRSVP integrada con Google Apps Script
+        async function submitRSVP(choice) {
+            try {
+                // Mostrar loading en el botón
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Enviando...';
+                btn.disabled = true;
+
+                let formData = {
+                    action: 'submitRSVP',
+                    guestCode: currentGuestCode,
+                    guestName: currentGuestName,
+                    attendance: choice,
+                    timestamp: new Date().toISOString()
+                };
+
+                if (choice === 'confirm') {
+                    const name = document.getElementById('guestNameConfirm').value.trim();
+                    const allergies = document.getElementById('allergies').value.trim();
+                    const comments = document.getElementById('comments').value.trim();
+
+                    if (!name) {
+                        alert('Por favor, introduce tu nombre.');
+                        return;
+                    }
+
+                    formData.confirmedName = name;
+                    formData.allergies = allergies;
+                    formData.comments = comments;
+                }
+
+                // Enviar al backend
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    // Mostrar mensaje personalizado del backend
+                    showSuccessMessage(result.message);
+                    
+                    // Limpiar formulario
+                    if (choice === 'confirm') {
+                        document.getElementById('guestNameConfirm').value = '';
+                        document.getElementById('allergies').value = '';
+                        document.getElementById('comments').value = '';
+                    }
+                    
+                    // Ocultar formularios
+                    document.querySelectorAll('.rsvp-form').forEach(form => form.classList.remove('active'));
+                    document.querySelectorAll('.rsvp-btn').forEach(btn => btn.classList.remove('active'));
+                } else {
+                    alert(result.message || 'Error al enviar la respuesta. Por favor, inténtalo de nuevo.');
+                }
+            } catch (error) {
+                console.error('Error al enviar RSVP:', error);
+                alert('Error de conexión. Por favor, inténtalo de nuevo.');
+            } finally {
+                // Restaurar botón
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Función para mostrar mensaje de éxito
+        function showSuccessMessage(message) {
+            // Crear elemento de mensaje
+            const messageDiv = document.createElement('div');
+            messageDiv.style.cssText = `
+                position: fixed;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+                background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+                color: white;
+                padding: 2rem;
+                border-radius: 15px;
+                box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+                z-index: 1001;
+                text-align: center;
+                max-width: 90%;
+                animation: fadeIn 0.5s ease;
+            `;
+            messageDiv.innerHTML = `
+                <h3 style="font-family: 'Playfair Display', serif; font-size: 1.5rem; margin-bottom: 1rem;">¡Gracias!</h3>
+                <p style="font-size: 1.1rem; line-height: 1.6;">${message}</p>
+                <br>
+                <button onclick="this.parentElement.remove()" style="
+                    background: white;
+                    color: #8B7355;
+                    border: none;
+                    padding: 0.5rem 1.5rem;
+                    border-radius: 25px;
+                    cursor: pointer;
+                    font-family: 'Lora', serif;
+                    font-weight: 500;
+                ">Cerrar</button>
+            `;
+            
+            document.body.appendChild(messageDiv);
+            
+            // Auto-cerrar después de 5 segundos
+            setTimeout(() => {
+                if (messageDiv.parentElement) {
+                    messageDiv.remove();
+                }
+            }, 5000);
+        }
+
+        // Galería
+        let currentSlide = 0;
+        const totalSlides = 5;
+
+        function moveGallery(direction) {
+            currentSlide += direction;
+            
+            if (currentSlide >= totalSlides) {
+                currentSlide = 0;
+            } else if (currentSlide < 0) {
+                currentSlide = totalSlides - 1;
+            }
+            
+            const track = document.getElementById('galleryTrack');
+            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+        }
+
+        // Auto-slide gallery
+        setInterval(() => {
+            moveGallery(1);
+        }, 5000);
+
+        // Función para enviar sugerencias musicales
+        async function submitSong() {
+            const suggestion = document.getElementById('songSuggestion').value.trim();
+            if (!suggestion) {
+                alert('Por favor, escribe al menos una sugerencia musical.');
+                return;
+            }
+
+            try {
+                // Mostrar loading
+                const btn = event.target;
+                const originalText = btn.textContent;
+                btn.textContent = 'Enviando...';
+                btn.disabled = true;
+
+                const response = await fetch(BACKEND_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        action: 'submitSong',
+                        guestCode: currentGuestCode,
+                        guestName: currentGuestName,
+                        songSuggestion: suggestion,
+                        timestamp: new Date().toISOString()
+                    })
+                });
+
+                const result = await response.json();
+
+                if (result.success) {
+                    showSuccessMessage(result.message);
+                    document.getElementById('songSuggestion').value = '';
+                } else {
+                    alert(result.message || 'Error al enviar las sugerencias. Por favor, inténtalo de nuevo.');
+                }
+            } catch (error) {
+                console.error('Error al enviar sugerencias musicales:', error);
+                alert('Error de conexión. Por favor, inténtalo de nuevo.');
+            } finally {
+                // Restaurar botón
+                btn.textContent = originalText;
+                btn.disabled = false;
+            }
+        }
+
+        // Animaciones al hacer scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // Observar todas las secciones para animaciones
+        setTimeout(() => {
+            document.querySelectorAll('.section').forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'translateY(30px)';
+                section.style.transition = 'all 0.8s ease';
+                observer.observe(section);
+            });
+        }, 1000);
+
+        // Efecto parallax suave en el hero
+        window.addEventListener('scroll', () => {
+            const scrolled = window.pageYOffset;
+            const hero = document.querySelector('.hero');
+            const rate = scrolled * -0.5;
+            
+            if (hero) {
+                hero.style.transform = `translateY(${rate}px)`;
+            }
+        });
+
+        // Smooth scroll para enlaces internos
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
