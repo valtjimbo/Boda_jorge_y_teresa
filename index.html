@@ -809,13 +809,13 @@ async function checkAccess() {
         btn.disabled = false;
     }
 }
-// Permitir presionar Enter
- en el campo de código
-        document.getElementById('accessCode').addEventListener('keypress', function(e) {
-            if (e.key === 'Enter') {
-                checkAccess();
-            }
-        });
+// Permitir presionar Enter en el campo de código
+document.getElementById('accessCode').addEventListener('keypress', function(e) {
+    if (e.key === 'Enter') {
+        checkAccess();
+    }
+});
+
 
         // Cuenta regresiva
         function startCountdown() {
