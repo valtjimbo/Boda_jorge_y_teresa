@@ -760,7 +760,8 @@
         const BACKEND_URL = 'https://script.google.com/macros/s/AKfycby6sgribhZIlpsZ7NLUfeaC1XyHVH3xkTYhfKL-PSq3ky6zUVA4x3Gjn0qpd58IC7P5/exec';
 
         // Función para verificar acceso
-        async function checkAccess() {
+        
+async function checkAccess() {
     const code = document.getElementById('accessCode').value.toUpperCase().trim();
 
     if (!code) {
@@ -808,9 +809,8 @@
         btn.disabled = false;
     }
 }
-
-
-        // Permitir presionar Enter en el campo de código
+// Permitir presionar Enter
+ en el campo de código
         document.getElementById('accessCode').addEventListener('keypress', function(e) {
             if (e.key === 'Enter') {
                 checkAccess();
@@ -863,7 +863,8 @@
         }
 
         // Nueva función submitRSVP integrada con Google Apps Script
-        async function submitRSVP(choice) {
+        
+async function submitRSVP(choice) {
     const btn = event.target;
     const originalText = btn.textContent;
     btn.textContent = 'Enviando...';
@@ -921,9 +922,8 @@
         btn.disabled = false;
     }
 }
-
-
-        // Función para mostrar mensaje de éxito
+// Función para mostrar mensaje
+ de éxito
         function showSuccessMessage(message) {
             // Crear elemento de mensaje
             const messageDiv = document.createElement('div');
@@ -991,7 +991,8 @@
         }, 5000);
 
         // Función para enviar sugerencias musicales
-        async function submitSong() {
+        
+async function submitSong() {
     const suggestion = document.getElementById('songSuggestion').value.trim();
 
     if (!suggestion) {
@@ -1033,9 +1034,8 @@
         btn.disabled = false;
     }
 }
+// Animaciones al hacer scroll
 
-
-        // Animaciones al hacer scroll
         const observerOptions = {
             threshold: 0.1,
             rootMargin: '0px 0px -50px 0px'
