@@ -851,39 +851,28 @@
             btn.textContent = 'Verificando...';
             btn.disabled = true;
 
-            try {       
-                const form = new FormData();
-        form.append('action', 'validateCode');
-        form.append('code', code);
+            try {
+    if (accessCodes[code]) {
+        currentGuestCode = code;
+        currentGuestName = accessCodes[code];
 
-        const response = await fetch(BACKEND_URL, {
-            method: 'POST',
-            body: form
-        });
+        document.getElementById('guestName').textContent = currentGuestName;
+        document.getElementById('accessOverlay').classList.add('hidden');
+        document.getElementById('personalHeader').style.display = 'block';
+        document.getElementById('mainContent').style.display = 'block';
+        document.getElementById('musicFloat').style.display = 'flex';
 
-        const result = await response.json();
-
-        if (result.success) {
-            currentGuestCode = code;
-            currentGuestName = result.guestName;
-
-            document.getElementById('guestName').textContent = currentGuestName;
-            document.getElementById('accessOverlay').classList.add('hidden');
-            document.getElementById('personalHeader').style.display = 'block';
-            document.getElementById('mainContent').style.display = 'block';
-            document.getElementById('musicFloat').style.display = 'flex';
-
-            setTimeout(() => {
-                startCountdown();
-                initMusicPlayer();
-            }, 500);
-        } else {
-            alert(result.message || 'Código incorrecto. Por favor, verifica tu código de invitación.');
-        }
-    } catch (error) {
-        console.error('Error al verificar el código:', error);
-        alert('Error de conexión. Por favor, inténtalo de nuevo.');
-    } finally {
+        setTimeout(() => {
+            startCountdown();
+            initMusicPlayer();
+        }, 500);
+    } else {
+        alert('Código incorrecto. Por favor, verifica tu código de invitación.');
+    }
+} catch (error) {
+    console.error('Error al verificar el código:', error);
+    alert('Error de conexión. Por favor, inténtalo de nuevo.');
+} finally {
         btn.textContent = originalText;
         btn.disabled = false;
     }
@@ -922,7 +911,104 @@ function toggleMusic() {
         }),
         '*'
     );
-};
+}
+// Función de cuenta regresiva
+function startCountdown() {
+    const weddingDate = new Date('2026-05-16T18:00:00');
+    
+    function updateCountdown() {
+        const now = new Date();
+        const distance = weddingDate - now;
+        
+        if (distance < 0) {
+            document.getElementById('days').textContent = '0';
+            document.getElementById('hours').textContent = '0';
+            document.getElementById('minutes').textContent = '0';
+            document.getElementById('seconds').textContent = '0';
+            return;
+        }
+        
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        document.getElementById('days').textContent = days;
+        document.getElementById('hours').textContent = hours;
+        document.getElementById('minutes').textContent = minutes;
+        document.getElementById('seconds').textContent = seconds;
+    }
+    
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+}
+// Funciones RSVP
+function selectRSVP(type) {
+    const buttons = document.querySelectorAll('.rsvp-btn');
+    const forms = document.querySelectorAll('.rsvp-form');
+    
+    buttons.forEach(btn => btn.classList.remove('active'));
+    forms.forEach(form => form.classList.remove('active'));
+    
+    if (type === 'confirm') {
+        buttons[0].classList.add('active');
+        document.getElementById('confirmForm').classList.add('active');
+    } else {
+        buttons[1].classList.add('active');
+        document.getElementById('declineForm').classList.add('active');
+    }
+}
+
+function submitRSVP(type) {
+    if (type === 'confirm') {
+        const name = document.getElementById('guestNameConfirm').value;
+        const allergies = document.getElementById('allergies').value;
+        const comments = document.getElementById('comments').value;
+        
+        if (!name.trim()) {
+            alert('Por favor, introduce tu nombre.');
+            return;
+        }
+        
+        console.log('RSVP confirmado:', { name, allergies, comments });
+        alert('¡Gracias por confirmar tu asistencia!');
+    } else {
+        console.log('RSVP declinado');
+        alert('Gracias por tu respuesta.');
+    }
+}
+// Funciones de galería
+let currentSlide = 0;
+const totalSlides = 5;
+
+function moveGallery(direction) {
+    currentSlide += direction;
+    
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+    
+    const track = document.getElementById('galleryTrack');
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+}
+
+function submitSong() {
+    const suggestion = document.getElementById('songSuggestion').value;
+    
+    if (!suggestion.trim()) {
+        alert('Por favor, escribe alguna sugerencia.');
+        return;
+    }
+    
+    console.log('Sugerencia musical:', suggestion);
+    alert('¡Gracias por tu sugerencia musical!');
+    document.getElementById('songSuggestion').value = '';
+}
+// Event listener para Enter en el campo de código
+document.getElementById('accessCode').addEventListener('keypress', function(event) {
+    if (event.key === 'Enter') {
+        checkAccess();
+    }
+});
     </script>
 </body>
 </html>
