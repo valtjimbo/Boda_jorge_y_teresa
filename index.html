@@ -851,5 +851,75 @@
             btn.textContent = 'Verificando...';
             btn.disabled = true;
 
-            try {
-                const form = new
+            try {       
+                const form = new FormData();
+        form.append('action', 'validateCode');
+        form.append('code', code);
+
+        const response = await fetch(BACKEND_URL, {
+            method: 'POST',
+            body: form
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+            currentGuestCode = code;
+            currentGuestName = result.guestName;
+
+            document.getElementById('guestName').textContent = currentGuestName;
+            document.getElementById('accessOverlay').classList.add('hidden');
+            document.getElementById('personalHeader').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('musicFloat').style.display = 'flex';
+
+            setTimeout(() => {
+                startCountdown();
+                initMusicPlayer();
+            }, 500);
+        } else {
+            alert(result.message || 'Código incorrecto. Por favor, verifica tu código de invitación.');
+        }
+    } catch (error) {
+        console.error('Error al verificar el código:', error);
+        alert('Error de conexión. Por favor, inténtalo de nuevo.');
+    } finally {
+        btn.textContent = originalText;
+        btn.disabled = false;
+    }
+}
+
+// Reproducir canción de Bruno Mars desde YouTube Music
+function initMusicPlayer() {
+    const playerContainer = document.getElementById('youtubePlayer');
+    playerContainer.innerHTML = `
+        <iframe 
+            id="ytMusicIframe"
+            src="https://www.youtube.com/embed/DbcGfcF-FME?autoplay=1&loop=1&playlist=DbcGfcF-FME&enablejsapi=1"
+            frameborder="0"
+            allow="autoplay"
+            style="width:1px; height:1px; opacity:0;"
+        ></iframe>
+    `;
+}
+
+// Controlar botón flotante
+function toggleMusic() {
+    const musicBtn = document.getElementById('musicFloat');
+    const iframe = document.getElementById('ytMusicIframe');
+
+    if (!iframe || !iframe.contentWindow) return;
+
+    isPlaying = !isPlaying;
+    musicBtn.classList.toggle('playing', isPlaying);
+    musicBtn.classList.toggle('paused', !isPlaying);
+
+    iframe.contentWindow.postMessage(
+        JSON.stringify({
+            event: 'command',
+            func: isPlaying ? 'playVideo' : 'pauseVideo',
+            args: []
+        }),
+        '*'
+    );
+}
