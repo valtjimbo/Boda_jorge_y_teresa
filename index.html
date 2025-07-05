@@ -871,7 +871,9 @@ async function checkAccess() {
             document.getElementById('guestName').textContent = currentGuestName;
             document.getElementById('accessOverlay').classList.add('hidden');
             document.getElementById('personalHeader').style.display = 'block';
-            document.getElementById('mainContent').style.display = 'block';
+            document.getElementById('mainContent').style.display = 'block'; //nuevo
+            document.getElementById('musicFloat').style.display = 'flex';   //nuevo
+            initMusicPlayer();
 
             setTimeout(() => {
                 startCountdown();
