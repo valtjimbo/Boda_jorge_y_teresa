@@ -498,29 +498,42 @@
         }
 
         /* Botón flotante de música */
+        .music-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
+            transition: all 0.3s ease;
+            border: 3px solid #f8f6f3;
+        }
+
+        .music-float:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 40px rgba(139, 115, 85, 0.6);
+        }
+
         .music-float .icon {
-    width: 30px;
-    height: 30px;
-    background-color: red; /* <--- SOLO PARA COMPROBAR SI SE RENDERIZA */
-    background-size: contain;
-    background-repeat: no-repeat;
-    background-position: center;
-}
+            font-size: 24px;
+            color: white;
+            transition: all 0.3s ease;
+        }
 
-.music-float.playing .icon {
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M12 2c.55 0 1 .45 1 1v18c0 .55-.45 1-1 1s-1-.45-1-1V3c0-.55.45-1 1-1z"/><path d="M6 9v6c0 .55-.45 1-1 1s-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1z"/><path d="M18 9v6c0 .55-.45 1-1 1s-1-.45-1-1V9c0-.55.45-1 1-1s1 .45 1 1z"/><path d="M9 7v10c0 .55-.45 1-1 1s-1-.45-1-1V7c0-.55.45-1 1-1s1 .45 1 1z"/><path d="M21 10v4c0 .55-.45 1-1 1s-1-.45-1-1v-4c0-.55.45-1 1-1s1 .45 1 1z"/></svg>');
-    animation: soundWave 1.5s infinite;
-}
+        .music-float.playing .icon::before {
+            content: "⏸";
+        }
 
-.music-float.paused .icon {
-    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>');
-}
-
-@keyframes soundWave {
-    0%, 100% { opacity: 1; }
-    50% { opacity: 0.3; }
-}
-
+        .music-float.paused .icon::before {
+            content: "▶";
+        }
         /* Ocultar iframe de YouTube */
         .youtube-player {
             position: fixed;
