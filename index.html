@@ -498,42 +498,30 @@
         }
 
         /* Botón flotante de música */
-        .music-float {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            width: 60px;
-            height: 60px;
-            background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            z-index: 999;
-            box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
-            transition: all 0.3s ease;
-            border: 3px solid #f8f6f3;
-        }
-
-        .music-float:hover {
-            transform: scale(1.1);
-            box-shadow: 0 15px 40px rgba(139, 115, 85, 0.6);
-        }
-
         .music-float .icon {
-            font-size: 24px;
-            color: white;
-            transition: all 0.3s ease;
-        }
+    font-size: 24px;
+    color: white;
+    transition: all 0.3s ease;
+    width: 30px;
+    height: 30px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
 
-        .music-float.playing .icon::before {
-            content: "⏸";
-        }
+.music-float.playing .icon {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>');
+    animation: pulse 2s infinite;
+}
 
-        .music-float.paused .icon::before {
-            content: "▶";
-        }
+.music-float.paused .icon {
+    background-image: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white"><path d="M8 5v14l11-7z"/></svg>');
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.1); }
+}
 
         /* Ocultar iframe de YouTube */
         .youtube-player {
