@@ -824,7 +824,7 @@
     </div>
 
     <!-- Botón flotante de música -->
-    <div class="music-float paused" id="musicFloat" onclick="toggleMusic()" data-tooltip="Reproducir música" style="display: none;">
+    <div class="music-float playing" id="musicFloat" onclick="toggleMusic()" data-tooltip="Pausar música" style="display: none;">
         <div class="sound-waves">
             <div class="wave"></div>
             <div class="wave"></div>
@@ -1111,7 +1111,9 @@ async function checkAccess() {
             document.getElementById('mainContent').style.display = 'block'; //nuevo
             document.getElementById('musicFloat').style.display = 'flex';   //nuevo
             // Inicializar tooltip
-            document.getElementById('musicFloat').setAttribute('data-tooltip', 'Reproducir música');
+            document.getElementById('musicFloat').setAttribute('data-tooltip', 'Pausar música');
+            isPlaying = true;
+
             initMusicPlayer();
 
             setTimeout(() => {
