@@ -497,13 +497,13 @@
             font-weight: 300;
         }
 
-        /* Botón flotante de música */
+        /* Botón flotante de música mejorado */
         .music-float {
             position: fixed;
             bottom: 20px;
             right: 20px;
-            width: 60px;
-            height: 60px;
+            width: 70px;
+            height: 70px;
             background: linear-gradient(135deg, #8B7355 0%, #A68B5B 100%);
             border-radius: 50%;
             display: flex;
@@ -514,6 +514,7 @@
             box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
             transition: all 0.3s ease;
             border: 3px solid #f8f6f3;
+            overflow: hidden;
         }
 
         .music-float:hover {
@@ -521,18 +522,199 @@
             box-shadow: 0 15px 40px rgba(139, 115, 85, 0.6);
         }
 
-        .music-float .icon {
-            font-size: 24px;
-            color: white;
+        .music-float:active {
+            transform: scale(0.95);
+        }
+
+        /* Contenedor de ondas */
+        .sound-waves {
+            position: relative;
+            width: 32px;
+            height: 32px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 3px;
+        }
+
+        /* Ondas individuales */
+        .wave {
+            width: 4px;
+            background: white;
+            border-radius: 2px;
+            transform-origin: center;
             transition: all 0.3s ease;
         }
 
-        .music-float.playing .icon::before {
-            content: "⏸";
+        .wave:nth-child(1) {
+            height: 8px;
+            animation-delay: -0.4s;
         }
 
-        .music-float.paused .icon::before {
-            content: "▶";
+        .wave:nth-child(2) {
+            height: 16px;
+            animation-delay: -0.2s;
+        }
+
+        .wave:nth-child(3) {
+            height: 24px;
+            animation-delay: 0s;
+        }
+
+        .wave:nth-child(4) {
+            height: 16px;
+            animation-delay: 0.2s;
+        }
+
+        .wave:nth-child(5) {
+            height: 8px;
+            animation-delay: 0.4s;
+        }
+
+        /* Animación de ondas cuando está reproduciendo */
+        .music-float.playing .wave {
+            animation: wave-animation 1s ease-in-out infinite;
+        }
+
+        @keyframes wave-animation {
+            0%, 100% {
+                transform: scaleY(0.5);
+                opacity: 0.7;
+            }
+            50% {
+                transform: scaleY(1.2);
+                opacity: 1;
+            }
+        }
+
+        /* Estado pausado - ondas estáticas */
+        .music-float.paused .wave {
+            animation: none;
+            transform: scaleY(0.3);
+            opacity: 0.6;
+        }
+
+        /* Efecto de pulso cuando está pausado */
+        .music-float.paused {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                box-shadow: 0 10px 30px rgba(139, 115, 85, 0.4);
+            }
+            50% {
+                box-shadow: 0 10px 30px rgba(139, 115, 85, 0.2);
+            }
+        }
+
+        /* Ripple effect cuando se hace clic */
+        .music-float::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: width 0.6s ease, height 0.6s ease;
+        }
+
+        .music-float.clicked::after {
+            width: 140px;
+            height: 140px;
+        }
+
+        /* Indicador de estado */
+        .status-indicator {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+            border: 2px solid #f8f6f3;
+            transition: all 0.3s ease;
+        }
+
+        .music-float.playing .status-indicator {
+            background: #4CAF50;
+            animation: blink 1.5s ease-in-out infinite;
+        }
+
+        .music-float.paused .status-indicator {
+            background: #FF9800;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        /* Tooltip */
+        .music-float::before {
+            content: attr(data-tooltip);
+            position: absolute;
+            bottom: 100%;
+            right: 0;
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 12px;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            pointer-events: none;
+            margin-bottom: 8px;
+        }
+
+        .music-float:hover::before {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Versión responsive */
+        @media (max-width: 768px) {
+            .music-float {
+                bottom: 15px;
+                right: 15px;
+                width: 60px;
+                height: 60px;
+            }
+
+            .sound-waves {
+                width: 28px;
+                height: 28px;
+                gap: 2px;
+            }
+
+            .wave {
+                width: 3px;
+            }
+
+            .wave:nth-child(1) {
+                height: 6px;
+            }
+
+            .wave:nth-child(2) {
+                height: 12px;
+            }
+
+            .wave:nth-child(3) {
+                height: 18px;
+            }
+
+            .wave:nth-child(4) {
+                height: 12px;
+            }
+
+            .wave:nth-child(5) {
+                height: 6px;
+            }
         }
         /* Ocultar iframe de YouTube */
         .youtube-player {
@@ -642,8 +824,15 @@
     </div>
 
     <!-- Botón flotante de música -->
-    <div class="music-float paused" id="musicFloat" onclick="toggleMusic()" style="display: none;">
-        <div class="icon"></div>
+    <div class="music-float paused" id="musicFloat" onclick="toggleMusic()" data-tooltip="Reproducir música" style="display: none;">
+        <div class="sound-waves">
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+            <div class="wave"></div>
+        </div>
+        <div class="status-indicator"></div>
     </div>
 
     <!-- Reproductor de YouTube oculto -->
@@ -921,6 +1110,8 @@ async function checkAccess() {
             document.getElementById('personalHeader').style.display = 'block';
             document.getElementById('mainContent').style.display = 'block'; //nuevo
             document.getElementById('musicFloat').style.display = 'flex';   //nuevo
+            // Inicializar tooltip
+            document.getElementById('musicFloat').setAttribute('data-tooltip', 'Reproducir música');
             initMusicPlayer();
 
             setTimeout(() => {
@@ -965,9 +1156,18 @@ function toggleMusic() {
 
     if (!iframe || !iframe.contentWindow) return;
 
+    // Efecto de click
+    musicBtn.classList.add('clicked');
+    setTimeout(() => {
+        musicBtn.classList.remove('clicked');
+    }, 600);
+
     isPlaying = !isPlaying;
     musicBtn.classList.toggle('playing', isPlaying);
     musicBtn.classList.toggle('paused', !isPlaying);
+
+    // Cambiar tooltip
+    musicBtn.setAttribute('data-tooltip', isPlaying ? 'Pausar música' : 'Reproducir música');
 
     iframe.contentWindow.postMessage(
         JSON.stringify({
