@@ -810,6 +810,7 @@
     <!-- Sistema de acceso -->
     <div class="access-overlay" id="accessOverlay">
         <div class="access-form">
+            <img src="assets/portada.jpg" alt="Portada boda" style="max-width: 250px; border-radius: 20px; margin-bottom: 1.5rem;">
             <h1>Teresa & Jorge</h1>
             <p>Introduce tu código de invitación</p>
             <input type="text" id="accessCode" placeholder="Código" maxlength="10">
@@ -851,8 +852,9 @@
         <!-- Nuestra historia -->
         <section class="section">
             <h2>Nuestra Historia</h2>
-            <p>Nos conocimos en una tarde de primavera que cambió nuestras vidas para siempre. Desde ese primer encuentro, supimos que habíamos encontrado a nuestra alma gemela. Después de años de risas, aventuras y sueños compartidos, hemos decidido dar el paso más importante de nuestras vidas.</p>
-            <p>Queremos que seas parte de este momento tan especial, porque los mejores recuerdos se crean con las personas que más queremos a nuestro lado.</p>
+            <img src="assets/historia.jpg" alt="Nuestra historia" style="width:100%; border-radius:20px; margin-bottom:1.5rem;">
+            <p>Queremos que seas parte de este momento tan especial, porque los mejores recuerdos se crean con las personas que más queremos a nuestro lado.
+            Hemos forjado un vínculo inquebrantable y os queremos hacer partícipes de este día inolvidable para nosotros, pues daremos nuestro primer paso hacia un futuro lleno de aventuras.</p>
         </section>
 
         <!-- Cuenta regresiva -->
@@ -878,6 +880,9 @@
                     </div>
                 </div>
             </div>
+            <a href="assets/boda.ics" download="Bodorrio_Jorge_Teresa.ics">
+            <button class="submit-btn" style="margin-top: 1rem;">Añadir al calendario 📅</button>
+            </a>
         </section>
 
         <!-- Detalles del evento -->
@@ -1004,12 +1009,11 @@
             <div class="gallery">
                 <div class="gallery-slider">
                     <div class="gallery-track" id="galleryTrack">
-                        <div class="gallery-item">📸 Foto 1 - Nuestra primera cita</div>
-                        <div class="gallery-item">📸 Foto 2 - En nuestro viaje a París</div>
-                        <div class="gallery-item">📸 Foto 3 - El día de la pedida</div>
-                        <div class="gallery-item">📸 Foto 4 - Con nuestras familias</div>
-                        <div class="gallery-item">📸 Foto 5 - Nuestro último cumpleaños juntos</div>
-                    </div>
+                    <div class="gallery-item" style="background-image:url('assets/1.jpg'); background-size:cover; background-position:center;"></div>
+                    <div class="gallery-item" style="background-image:url('assets/2.jpg'); background-size:cover; background-position:center;"></div>
+                    <div class="gallery-item" style="background-image:url('assets/3.jpg'); background-size:cover; background-position:center;"></div>
+                    <div class="gallery-item" style="background-image:url('assets/4.jpg'); background-size:cover; background-position:center;"></div>
+                </div>
                     <button class="gallery-nav prev" onclick="moveGallery(-1)">‹</button>
                     <button class="gallery-nav next" onclick="moveGallery(1)">›</button>
                 </div>
