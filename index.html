@@ -390,14 +390,17 @@
 
         .gallery-slider {
             position: relative;
-            overflow: hidden;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            display: flex;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .gallery-track {
             display: flex;
-            transition: transform 0.5s ease;
         }
 
         .gallery-item {
@@ -410,6 +413,8 @@
             font-size: 1.1rem;
             color: #666;
             border: 2px dashed #ccc;
+            scroll-snap-align: center;
+            flex-shrink: 0;
         }
 
         .gallery-nav {
