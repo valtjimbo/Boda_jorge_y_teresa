@@ -392,19 +392,21 @@
             position: relative;
             overflow-x: auto;
             overflow-y: hidden;
+            -webkit-overflow-scrolling: touch; /* mejora el scroll en iOS */
             scroll-snap-type: x mandatory;
             scroll-behavior: smooth;
-            display: flex;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
         }
 
         .gallery-track {
             display: flex;
+            width: max-content; /* hace que la pista tenga el ancho total de las imágenes */
         }
 
         .gallery-item {
-            min-width: 100%;
+            flex: 0 0 100%; /* cada item ocupa 100% del contenedor visible */
+            width: 100%;
             height: 400px;
             background: #f0f0f0;
             display: flex;
@@ -414,7 +416,7 @@
             color: #666;
             border: 2px dashed #ccc;
             scroll-snap-align: center;
-            flex-shrink: 0;
+            box-sizing: border-box;
         }
 
         .gallery-nav {
@@ -1370,16 +1372,20 @@ function toggleBusOptions() {
         const totalSlides = 10;
 
         function moveGallery(direction) {
+            const slider = document.querySelector('.gallery-slider');
+            const track = document.getElementById('galleryTrack');
+
             currentSlide += direction;
-            
+
             if (currentSlide >= totalSlides) {
                 currentSlide = 0;
             } else if (currentSlide < 0) {
                 currentSlide = totalSlides - 1;
             }
-            
-            const track = document.getElementById('galleryTrack');
-            track.style.transform = `translateX(-${currentSlide * 100}%)`;
+
+            // Calcular la posición exacta a desplazar: ancho visible del slider * índice
+            const scrollLeft = currentSlide * slider.clientWidth;
+            slider.scrollTo({ left: scrollLeft, behavior: 'smooth' });
         }
 
         // Auto-slide gallery
