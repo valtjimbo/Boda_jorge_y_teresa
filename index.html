@@ -904,8 +904,8 @@
                     </div>
                 </div>
             </div>
-            <a href="assets/boda.ics" download="Bodorrio_Jorge_Teresa.ics">
-            <button class="submit-btn" style="margin-top: 1rem;" onclick="downloadICS()">Añadir al calendario 📅</button>
+            <a href="https://calendar.app.google/38qmSuxXs7Kk7NnS9" target="_blank" rel="noopener noreferrer">
+            <button class="submit-btn" style="margin-top: 1rem;">Añadir al calendario 📅</button>
             </a>
         </section>
 
@@ -923,7 +923,7 @@
                 </div>
                 <div class="event-detail">
                     <strong>Dress Code</strong>
-                    Cóctel
+                    Elegante (incluye chaqué/traje ♂ y tacones ♀)
                 </div>
                 <div class="event-detail">
                 <strong>Transporte</strong>
@@ -1553,15 +1553,6 @@ async function submitSong() {
             });
         });
         
-        function downloadICS() {
-            const link = document.createElement('a');
-            link.href = 'assets/boda.ics';
-            link.download = 'Bodorrio_Jorge_Teresa.ics';
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-        };
-
         // Inicializar galería cuando se muestra el contenido
         function initGallery() {
             if (document.getElementById('galleryIndicators')) {
