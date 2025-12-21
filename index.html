@@ -128,7 +128,7 @@
         /* Portada */
         .hero {
             height: 100vh;
-            background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 600"><rect fill="%23f4f1ed" width="400" height="600"/><circle cx="200" cy="300" r="100" fill="%23e8ddd4" opacity="0.5"/><text x="200" y="320" text-anchor="middle" font-family="serif" font-size="24" fill="%23d8b4a8">Teresa %26 Jorge</text></svg>');
+            background: linear-gradient(135deg, rgba(216, 180, 168, 0.9) 0%, rgba(232, 213, 207, 0.8) 100%);
             background-size: cover;
             background-position: center;
             display: flex;
@@ -138,16 +138,6 @@
             text-align: center;
             color: white;
             position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: linear-gradient(135deg, rgba(139, 115, 85, 0.8) 0%, rgba(166, 139, 91, 0.6) 100%);
         }
 
         .hero-content {
@@ -1208,7 +1198,7 @@
                     </div>
                 </div>
             </div>
-            <a href="https://calendar.app.google/38qmSuxXs7Kk7NnS9" target="_blank" rel="noopener noreferrer">
+            <a href="assets/boda.ics" download="Boda_Teresa_Jorge.ics">
             <button class="submit-btn" style="margin-top: 1rem;">Añadir al calendario 📅</button>
             </a>
         </section>
@@ -1481,16 +1471,10 @@ document.getElementById('accessCode').addEventListener('keypress', function(e) {
 
 // Reproducir canción de Bruno Mars desde YouTube Music
 function initMusicPlayer() {
-    const playerContainer = document.getElementById('youtubePlayer');
-    playerContainer.innerHTML = `
-        <iframe 
-            id="ytMusicIframe"
-            src="https://www.youtube.com/embed/DbcGfcF-FME?autoplay=1&loop=1&playlist=DbcGfcF-FME&enablejsapi=1"
-            frameborder="0"
-            allow="autoplay"
-            style="width:1px; height:1px; opacity:0;"
-        ></iframe>
-    `;
+    const audio = new Audio('assets/cancion de la web.mp3');
+    audio.loop = true;
+    audio.play().catch(e => console.log('Error al reproducir:', e));
+    window.audioPlayer = audio; // Guardar referencia global
 }
 
 
@@ -1498,31 +1482,23 @@ function initMusicPlayer() {
 // Controlar botón flotante
 function toggleMusic() {
     const musicBtn = document.getElementById('musicFloat');
-    const iframe = document.getElementById('ytMusicIframe');
+    const audio = window.audioPlayer;
 
-    if (!iframe || !iframe.contentWindow) return;
+    if (!audio) return;
 
-    // Efecto de click
     musicBtn.classList.add('clicked');
-    setTimeout(() => {
-        musicBtn.classList.remove('clicked');
-    }, 600);
+    setTimeout(() => musicBtn.classList.remove('clicked'), 600);
 
     isPlaying = !isPlaying;
     musicBtn.classList.toggle('playing', isPlaying);
     musicBtn.classList.toggle('paused', !isPlaying);
-
-    // Cambiar tooltip
     musicBtn.setAttribute('data-tooltip', isPlaying ? 'Pausar música' : 'Reproducir música');
 
-    iframe.contentWindow.postMessage(
-        JSON.stringify({
-            event: 'command',
-            func: isPlaying ? 'playVideo' : 'pauseVideo',
-            args: []
-        }),
-        '*'
-    );
+    if (isPlaying) {
+        audio.play();
+    } else {
+        audio.pause();
+    }
 }
         // Cuenta regresiva
         function startCountdown() {
