@@ -127,10 +127,8 @@
 
         /* Portada */
         .hero {
-            height: 100vh;
+            min-height: 100vh;
             background: linear-gradient(135deg, rgba(216, 180, 168, 0.9) 0%, rgba(232, 213, 207, 0.8) 100%);
-            background-size: cover;
-            background-position: center;
             display: flex;
             flex-direction: column;
             justify-content: center;
@@ -138,6 +136,15 @@
             text-align: center;
             color: white;
             position: relative;
+            padding: 2rem 1rem;
+        }
+
+        .hero-image {
+            width: 90%;
+            max-width: 600px;
+            border-radius: 25px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            margin-bottom: 2rem;
         }
 
         .hero-content {
@@ -1161,6 +1168,7 @@
     <div class="main-content" id="mainContent" style="display: none;">
         <!-- Portada -->
         <section class="hero">
+            <img src="assets/cabecera.jpg" alt="Teresa & Jorge" class="hero-image">
             <div class="hero-content">
                 <h1>Teresa & Jorge</h1>
                 <div class="date">16 de mayo de 2026</div>
@@ -1198,7 +1206,7 @@
                     </div>
                 </div>
             </div>
-            <a href="assets/boda.ics" download="Boda_Teresa_Jorge.ics">
+            <a href="https://drive.google.com/uc?export=download&id=1rPN2EAGD7LgoNeryCxdEXnri838f9ZVP" target="_blank">
             <button class="submit-btn" style="margin-top: 1rem;">Añadir al calendario 📅</button>
             </a>
         </section>
@@ -1217,7 +1225,7 @@
                 </div>
                 <div class="event-detail">
                     <strong>Dress Code</strong>
-                    Elegante (incluye chaqué/traje ♂ y tacones ♀)
+                    Cóctel (Chaqué/traje prohibidas las deportivas, que no vamos a hacer deporte ☺ )
                 </div>
                 <div class="event-detail">
                 <strong>Transporte</strong>
@@ -1247,7 +1255,7 @@
             <h2>Transporte</h2>
             <p>Hay parking gratuito disponible en el lugar de la celebración.</p>
             <p>Para quien lo desee, pondremos a disposición autobuses que saldrán desde:</p>
-            <div class="map-container">
+            <!--<div class="map-container">
                 <iframe 
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3036.948929083032!2d-3.701058223571859!3d40.4321297547014!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd4229ba75d190c1%3A0xe72aac867a56198!2sC.%20de%20Luchana%2C%2033%2C%20Chamber%C3%AD%2C%2028010%20Madrid!5e0!3m2!1ses!2ses!4v1751897863763!5m2!1ses!2ses"
                     width="100%" 
@@ -1258,11 +1266,13 @@
                     referrerpolicy="no-referrer-when-downgrade">
                 </iframe>
             </div>
+            -->
+            <p>Aún por determinar(TBD). Revisad más adelante, tendremos cerrado el lugar exacto de salida en el centro de madrid.</p>
             <div class="event-details" style="margin-top: 2rem;">
                 <h3>Horarios de Autobús</h3>
                 <div class="event-detail">
                     <strong>Ida</strong>
-                    12:00h desde C. de Luchana, 33
+                    12:00h desde <!--C. de Luchana, 33--> "TBD"
                 </div>
                 <div class="event-detail">
                     <strong>Vuelta</strong>
@@ -1337,6 +1347,9 @@
                     <div class="gallery-item" style="background-image:url('assets/8.jpg'); background-size:cover; background-position:center;"></div>
                     <div class="gallery-item" style="background-image:url('assets/9.jpg'); background-size:cover; background-position:center;"></div>
                     <div class="gallery-item" style="background-image:url('assets/10.jpg'); background-size:cover; background-position:center;"></div>
+                    <div class="gallery-item" style="background-image:url('assets/11.jpg'); background-size:cover; background-position:center;"></div>
+                    <div class="gallery-item" style="background-image:url('assets/12.jpg'); background-size:cover; background-position:center;"></div>
+                    <div class="gallery-item" style="background-image:url('assets/13.jpg'); background-size:cover; background-position:center;"></div>
                 </div>
                     <button class="gallery-nav prev" onclick="moveGallery(-1)">‹</button>
                     <button class="gallery-nav next" onclick="moveGallery(1)">›</button>
@@ -1670,15 +1683,15 @@ function toggleBusOptions() {
 
 // Galería
         let currentSlide = 0;
-        const totalSlides = 10;
+        const totalSlides = 13;
 
         function moveGallery(direction) {
             currentSlide += direction;
             
-            if (currentSlide >= 10) {
+            if (currentSlide >= 13) {
                 currentSlide = 0;
             } else if (currentSlide < 0) {
-                currentSlide = 9;
+                currentSlide = 12;
             }
             
             updateGallery(); // <-- ahora llama a esta nueva función
@@ -1689,7 +1702,7 @@ function toggleBusOptions() {
             const indicators = document.getElementById('galleryIndicators');
             
             // Crear 10 puntitos (uno por cada imagen)
-            for(let i = 0; i < 10; i++) {
+            for(let i = 0; i < 13; i++) {
                 const dot = document.createElement('div');
                 dot.className = 'gallery-indicator' + (i === 0 ? ' active' : '');
                 
