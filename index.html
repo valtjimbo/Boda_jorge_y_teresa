@@ -415,19 +415,21 @@
             position: absolute;
             top: 50%;
             transform: translateY(-50%);
-            background: rgba(255,255,255,0.9);
-            border: none;
+            background: rgba(216, 180, 168, 0.15);
+            border: 2px solid rgba(255, 255, 255, 0.4);
             width: 50px;
             height: 50px;
             border-radius: 50%;
             cursor: pointer;
             font-size: 1.2rem;
-            color: #d8b4a8;
+            color: white;
             transition: all 0.3s ease;
+            backdrop-filter: blur(5px);
         }
 
         .gallery-nav:hover {
-            background: white;
+            background: rgba(216, 180, 168, 0.4);
+            border-color: rgba(255, 255, 255, 0.8);
             transform: translateY(-50%) scale(1.1);
         }
 
@@ -1217,6 +1219,7 @@
                 <div class="event-detail">
                     <strong>Fecha</strong>
                     Sábado 16 de mayo de 2026
+                    <br><br>
                     Hora de la ceremonia: 13h
                 </div>
                 <div class="event-detail">
@@ -1226,6 +1229,7 @@
                 <div class="event-detail">
                     <strong>Dress code</strong>
                     Traje oscuro para ellos y vestido o traje de cóctel para ellas.
+                    <br><br>
                     (Deportivas permitidas solo en la pista de baile ☺)
                 </div>
                 <div class="event-detail">
@@ -1517,7 +1521,7 @@ function toggleMusic() {
 }
         // Cuenta regresiva
         function startCountdown() {
-            const weddingDate = new Date('2026-05-16T18:00:00').getTime();
+            const weddingDate = new Date('2026-05-16T13:30:00').getTime();
             
             const countdown = setInterval(() => {
                 const now = new Date().getTime();
